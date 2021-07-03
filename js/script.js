@@ -1,5 +1,6 @@
 let computerScore = 0;
 let userScore = 0;
+let count = 0;
 
 let userChoice;
 let computerChoice;
@@ -10,7 +11,6 @@ const scissor = "scissor";
 
 function determineWinner(computer, user) {
     if(user.toLowerCase() === rock) {
-        console.log(1);
         if(computer.toLowerCase() === scissor) {
             return true;
         } else if(computer.toLowerCase() === paper){
@@ -19,7 +19,6 @@ function determineWinner(computer, user) {
             return;
         }
     } else if(user.toLowerCase() === paper) {
-        console.log(2);
         if(computer.toLowerCase() === rock) {
             return true;
         } else if(computer.toLowerCase() === scissor){
@@ -28,7 +27,6 @@ function determineWinner(computer, user) {
             return;
         }
     } else {
-        console.log(2);
         if(computer.toLowerCase() === paper) {
             return true;
         } else if(computer.toLowerCase() === rock){
@@ -54,19 +52,22 @@ function getComputerChoice() {
     }
 }
 
-function alertWinnerAndScore(winner) {
+function displayWinner(winner) {
     let message = "";
+
+    document.querySelectorAll(".win").forEach(div => div.classList.add('hide'));
+
     if(winner) {
-        message += "User won the round";
+        document.querySelector('#win-human').classList.toggle('hide');
     } else if(winner === false) {
-        message += "Computer won the round";
+        document.querySelector('#win-comp').classList.toggle('hide');
     } else {
-        message += "Round tied";
+        document.querySelector('#win-tied').classList.toggle('hide');
     }
 
-    message += `\n Score User: ${userScore} Computer: ${computerScore}`;
+    // message += `\n Score User: ${userScore} Computer: ${computerScore}`;
 
-    alert(message);
+    // alert(message);
 }
 
 function alertWinner(winner) {
@@ -81,34 +82,52 @@ function alertWinner(winner) {
 
 function game() {
     console.log("In the game");
-    for(let i = 0;i<5;i++) {
-        userChoice = getInputFromUser();
+
+    const buttons = document.querySelectorAll(".btn");
+
+    buttons.forEach(button => button.addEventListener("click", startGame));
+
+    function startGame(e) {
+        count++;
+        userChoice = e.srcElement.innerText;
         computerChoice = getComputerChoice();
 
         console.log(userChoice +" "+computerChoice);
-
+    
         winner = determineWinner(computerChoice, userChoice);
-
-        console.log(winner);
-
+    
+        console.log(count);
+    
         if(winner) {
             userScore++;
         } else if(winner === false) {
             computerScore++;
         }
-
+    
         console.log(userScore+" "+computerScore);
+    
+        displayWinner(winner);
 
-        alertWinnerAndScore(winner);
-    }
+        if(count===5) {
+            finalWinner();
+        }
+    };
+}
 
+function finalWinner() {
+    document.querySelectorAll(".win").forEach(div => div.classList.add('hide'));
+    const result= document.querySelector('#final-result');
+    result.classList.remove('hide');
     if(userScore > computerScore) {
-        alertWinner("user");
+        result.textContent = 'Whoa!!! You beat the computer';
     } else if (userScore < computerScore) {
-        alertWinner("computer");
+        result.textContent = 'Oh No!!! Computer beat you. Better luck next time';
     } else {
-        alertWinner("tie");
+        result.textContent = 'Shoot!!! Match got tied';
     }
+    count = 0;
+    userScore = 0;
+    computerScore = 0;
 }
 
 game();

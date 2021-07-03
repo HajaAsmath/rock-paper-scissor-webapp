@@ -1,0 +1,59 @@
+html body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    font-family: arial,sans-serif;
+}
+
+main {
+    height: 100vh;
+    background-color: black;
+}
+
+#welcome {
+    text-align: center;
+    padding-top: 150px;
+}
+
+#welcome h1,h2{
+    color: white;
+}
+
+.option{
+    padding-top: 50px;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    height: 90px;
+    width: 200px;
+    margin: 10px;
+    border: solid;
+    border-color: white;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    box-shadow: 0 1px 12px white;
+}
+
+.btn span {
+    position: relative;
+    top: 35px;
+}
+
+.result {
+    text-align: center;
+    color: white;
+}
+
+.hide {
+    display: none;
+}
+
